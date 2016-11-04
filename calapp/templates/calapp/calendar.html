@@ -1,0 +1,331 @@
+{% load staticfiles %}
+<html>
+
+<head>
+	<title>Calendar</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+
+	<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+	<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}">	
+
+	<script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+	<script>
+		var csrf_token = '{{ csrf_token }}';
+
+	</script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="cal-side-bar">
+			<div id="cal-side-bar-top">
+				<span id="btn-menu" class="btn-fa">
+                    <i class="fa fa-bars"></i>
+                </span>
+			</div>
+			<div id="cal-thumb">
+				<div id="cal-thumb-content-top">
+					<span class="month-long">November</span>
+					<span class="year">2015</span>
+				</div>
+				<div id="cal-thumb-content-grid">
+					<div id="thumb-week-days">
+						<ul>
+							<li>Su</li>
+							<li>Mo</li>
+							<li>Tu</li>
+							<li>We</li>
+							<li>Th</li>
+							<li>Fr</li>
+							<li>Sa</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li class="disabled">1</li>
+							<li class="disabled">2</li>
+							<li class="disabled">3</li>
+							<li class="disabled">4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+					<div class="thumb-week-row">
+						<ul>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="time">
+				<span id="hour">12</span>
+				<span>:</span>
+				<span id="minutes">23</span>
+				<span id="am-pm">am</span>
+			</div>
+			<div id="today-events">
+				<div class="top-heading">Today</div>
+				<ul>
+					<li>1a</li>
+					<li>2a</li>
+					<li>3a</li>
+					<li>4a</li>
+					<li>5a</li>
+				</ul>
+			</div>
+			<div id="weather">
+				<div class="top-heading">Weather</div>
+				<div id="weather-content">
+					<div id="weather-type">
+						<p id="weather-type-icon">
+							<i class="fa fa-cloud"></i>
+						</p>
+						<p id="weather-type-text">Cloudy</p>
+					</div>
+					<span id="weather-max">28º</span>
+					<span id="weather-min">20º C</span>
+				</div>
+			</div>
+		</div>
+		<div id="cal-content">
+			<div id="cal-content-top">
+				<span id="cal-content-top-month">
+                    <span class="btn-fa" id="cal-content-month-up">
+                        <i class="fa fa-chevron-up"></i>
+                    </span>
+				<span class="btn-fa" id="cal-content-month-dn">
+                        <i class="fa fa-chevron-down"></i>
+                    </span>
+				<span class="month-long">November</span>
+				<span class="year">2015</span>
+				</span>
+				<span id="cal-content-top-icon">
+                    <span class="btn-fa" id="btn-sync" id="icon-sync">
+                        <i class="fa fa-refresh"></i>
+                    </span>
+				<span class="btn-fa">
+                        <i class="fa fa-gear"></i>
+                    </span>
+				</span>
+			</div>
+			<div id="cal-content-grid">
+				<div id="week-days">
+					<ul>
+						<li class="week-day">Sunday</li>
+						<li class="week-day">Monday</li>
+						<li class="week-day selected">Tuesday</li>
+						<li class="week-day">Wednesday</li>
+						<li class="week-day">Thursday</li>
+						<li class="week-day">Friday</li>
+						<li class="week-day">Saturday</li>
+					</ul>
+				</div>
+				<div class="week-row">
+					<ul>
+						<li class="week-row-cell disabled">1</li>
+						<li class="week-row-cell disabled">2</li>
+						<li class="week-row-cell disabled">3</li>
+						<li class="week-row-cell disabled">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+				<div class="week-row">
+					<ul>
+						<li class="week-row-cell">1</li>
+						<li class="week-row-cell">2</li>
+						<li class="week-row-cell">3</li>
+						<li class="week-row-cell">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+				<div class="week-row">
+					<ul>
+						<li class="week-row-cell">1</li>
+						<li class="week-row-cell">2</li>
+						<li class="week-row-cell">3</li>
+						<li class="week-row-cell selected">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+				<div class="week-row">
+					<ul>
+						<li class="week-row-cell">1</li>
+						<li class="week-row-cell">2</li>
+						<li class="week-row-cell">3</li>
+						<li class="week-row-cell">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+				<div class="week-row">
+					<ul>
+						<li class="week-row-cell">1</li>
+						<li class="week-row-cell">2</li>
+						<li class="week-row-cell">3</li>
+						<li class="week-row-cell">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+				<div class="week-row last">
+					<ul>
+						<li class="week-row-cell">1</li>
+						<li class="week-row-cell">2</li>
+						<li class="week-row-cell">3</li>
+						<li class="week-row-cell">4</li>
+						<li class="week-row-cell">5</li>
+						<li class="week-row-cell">6</li>
+						<li class="week-row-cell last">7</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-wrapper" id="add-event-form">
+		<form>
+			{% csrf_token %}
+			<input type="hidden" name="action" id="add-event-action" value="add">
+			<input type="hidden" name="eid" id="add-event-eid" value="">
+			<input type="hidden" name="synced" id="add-event-synced" value="false">
+			<ul>
+				<li class="form-li">
+					<span class="form-top" id="add-event-top">Thursday, 13 October 2016</span>
+					<span class="btn-fa btn-close form-close">
+						<i class="fa fa-times"></i>
+					</span>
+				</li>
+				<li class="form-li">
+					<span class="input-field">
+                        <input id="add-event-name" maxlength="50" name="name" placeholder="Event Name" type="text" required>
+                    </span>
+				</li>
+				<li class="form-li">
+					<span class="input-field">
+                        <input id="add-event-location" maxlength="100" name="location" placeholder="Location" required>
+                    </span>
+				</li>
+				<li class="form-li">
+					<span class="input-name">Starts</span>
+					<span class="input-field datetime-field">
+                        <input id="add-event-sdate" name="start_date" type="date" ><input id="add-event-stime" name="start_time" type="time" required>
+                    </span>
+				</li>
+				<li class="form-li">
+					<span class="input-name">Ends</span>
+					<span class="input-field datetime-field">
+                        <input id="add-event-edate" name="end_date" type="date" ><input id="add-event-etime" name="end_time" type="time" required>
+                    </span>
+				</li>
+				<li class="form-li">
+					<input id="add-event-allday" type="checkbox" name="allday">
+					<label for="add-event-allday" class="input-name"> All Day</label>
+				</li>
+				<li class="form-li">
+					<textarea id="add-event-desc" name="description" placeholder="Description" maxlength="200"></textarea>
+				</li>
+				<li class="form-li">
+					<input class="form-btn form-close" type="button" value="Cancel">
+					<input class="form-btn btn-right" type="submit" value="Save">
+				</li>
+			</ul>
+		</form>
+	</div>
+	<div class="form-wrapper" id="detail-event-form">
+		<form>
+			<ul>
+				<li class="form-li">
+					<span class="form-top" id="detail-event-name">Event Name</span>
+					<span class="btn-fa btn-close form-close">
+						<i class="fa fa-times"></i>
+					</span>
+				</li>
+				<li class="form-li">
+					<p class="detail-label">Where</p>
+					<p id="detail-event-location" class="detail-info"></p>
+				</li>
+				<li class="form-li">
+					<p class="detail-label">When</p>
+					<p id="detail-event-date" class="detail-info"></p>
+				</li>
+				<li class="form-li">
+					<p class="detail-label">Description</p>
+					<p id="detail-event-desc" class="detail-info"></p>
+				</li>
+				<div class="form-li">
+					<input class="form-btn" id="btn-edit" type="button" value="Edit">
+					<input class="form-btn btn-right" id="btn-delete" type="button" value="Delete">
+				</div>
+			</ul>
+		</form>
+	</div>
+	<!--
+    <script src="{% static 'js/sync.js' %}"></script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+-->
+	<script src="{% static 'js/calendar.js' %}"></script>
+	<script src="https://apis.google.com/js/client.js?onload=tryauth"></script>
+</body>
+
+</html>
